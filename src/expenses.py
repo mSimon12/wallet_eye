@@ -37,4 +37,4 @@ class ExpensesGroup(object):
         pass
 
     def get_members(self):
-        return self.__members_list
+        return list(self.__members_list.keys())
