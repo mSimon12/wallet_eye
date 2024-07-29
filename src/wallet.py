@@ -6,11 +6,16 @@ class Transaction(object):
         Each transaction is unique by a timestamp and is composed by description and absolute value
     """
 
-    def __init__(self, description: str, value: float):
+    def __init__(self, value: float, description: str = "", origin: str = "", dest: str = ""):
         now = datetime.datetime.now()
-        self.date = now.strftime("%d/%m/%Y %H:%M:%S")
-        self.description = description
-        self.value = abs(value)
+        self.__date = now.strftime("%d/%m/%Y %H:%M:%S")
+        self.__description = description
+        self.__value = abs(value)
+        self.__source = origin
+        self.__destination = dest
+
+    def get_value(self):
+        return self.__value
 
 
 class Wallet(object):
@@ -21,11 +26,14 @@ class Wallet(object):
     def get_balance(self):
         return self.__balance
 
-    def deposit(self, value):
-        self.__balance += value
+    def put_money(self, exchange: Transaction):
+        self.__balance += exchange.get_value()
 
-    def withdraw(self, value):
-        self.__balance -= value
+    def grab_money(self, exchange: Transaction):
+        self.__balance -= exchange.get_value()
+
+    def generate_report(self, begin_date, end_date):
+        pass
 
 
 if __name__ == "__main__":
